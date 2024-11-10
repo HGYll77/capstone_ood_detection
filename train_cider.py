@@ -19,7 +19,7 @@ from utils import (CompLoss, DisLoss, DisLPLoss, SupConLoss,
                 set_loader_small, set_loader_ImageNet, set_model)
 
 parser = argparse.ArgumentParser(description='Training with CIDER and SupCon Loss')
-parser.add_argument('--gpu', default=7, type=int, help='which GPU to use')
+parser.add_argument('--gpu', default=1, type=int, help='which GPU to use')
 parser.add_argument('--seed', default=4, type=int, help='random seed')
 parser.add_argument('--w', default=1, type=float,
                     help='loss scale')
@@ -27,8 +27,8 @@ parser.add_argument('--proto_m', default= 0.5, type=float,
                    help='weight of prototype update')
 parser.add_argument('--feat_dim', default = 128, type=int,
                     help='feature dim')
-parser.add_argument('--in-dataset', default="CIFAR-100", type=str, help='in-distribution dataset')
-parser.add_argument('--id_loc', default="datasets/CIFAR100", type=str, help='location of in-distribution dataset')
+parser.add_argument('--in-dataset', default="CIFAR-10", type=str, help='in-distribution dataset')
+parser.add_argument('--id_loc', default="datasets/CIFAR10", type=str, help='location of in-distribution dataset')
 parser.add_argument('--model', default='resnet34', type=str, help='model architecture: [resnet18, resnet34]')
 parser.add_argument('--head', default='mlp', type=str, help='either mlp or linear head')
 parser.add_argument('--loss', default = 'cider', type=str, choices = ['supcon', 'cider'],
@@ -73,7 +73,7 @@ args = parser.parse_args()
 
 state = {k: v for k, v in args._get_kwargs()}
 
-date_time = datetime.now().strftime("%d_%m_%H:%M")
+date_time = datetime.now().strftime("%d_%m_%H-%M")
 
 #processing str to list for linear lr scheduling
 args.lr_decay_epochs = [int(step) for step in args.lr_decay_epochs.split(',')]
